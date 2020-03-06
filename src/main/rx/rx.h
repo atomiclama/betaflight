@@ -200,6 +200,12 @@ int16_t getRssiDbm(void);
 void setRssiDbm(int16_t newRssiDbm, rssiSource_e source);
 void setRssiDbmDirect(int16_t newRssiDbm, rssiSource_e source);
 
+#ifdef USE_RX_SNR_DBM
+int8_t getSnrDbm(void);
+void setSnrDbm(int8_t newSnrDbm);
+void setSnrDbmDirect(int8_t newSnrDbm);
+#endif
+
 void rxSetRfMode(uint8_t rfModeValue);
 uint8_t rxGetRfMode(void);
 

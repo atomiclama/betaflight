@@ -106,8 +106,8 @@
 #include "rx/cc2500_sfhss.h"
 #include "rx/crsf.h"
 #include "rx/cyrf6936_spektrum.h"
-#include "rx/rx.h"
-#include "rx/spektrum.h"
+#include "rx/a7105_flysky.h"
+#include "rx/crsf.h"
 
 #include "sensors/acceleration.h"
 #include "sensors/barometer.h"
@@ -1276,6 +1276,9 @@ const clivalue_t valueTable[] = {
 #ifdef USE_RX_RSSI_DBM
     { "osd_rssi_dbm_alarm",         VAR_INT16   | MASTER_VALUE, .config.minmaxUnsigned = { CRSF_RSSI_MIN, CRSF_SNR_MAX }, PG_OSD_CONFIG, offsetof(osdConfig_t, rssi_dbm_alarm) },
 #endif
+#ifdef USE_RX_SNR_DBM
+    { "osd_snr_dbm_alarm",          VAR_INT8   | MASTER_VALUE, .config.minmax = { CRSF_MIN_SNR, CRSF_MAX_SNR }, PG_OSD_CONFIG, offsetof(osdConfig_t, snr_dbm_alarm) },
+#endif
     { "osd_cap_alarm",              VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 0, 20000 }, PG_OSD_CONFIG, offsetof(osdConfig_t, cap_alarm) },
     { "osd_alt_alarm",              VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 0, 10000 }, PG_OSD_CONFIG, offsetof(osdConfig_t, alt_alarm) },
     { "osd_distance_alarm",         VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 0, UINT16_MAX }, PG_OSD_CONFIG, offsetof(osdConfig_t, distance_alarm) },
@@ -1302,6 +1305,9 @@ const clivalue_t valueTable[] = {
 #endif
 #ifdef USE_RX_RSSI_DBM
     { "osd_rssi_dbm_pos",           VAR_UINT16  | MASTER_VALUE, .config.minmaxUnsigned = { 0, OSD_POSCFG_MAX }, PG_OSD_ELEMENT_CONFIG, offsetof(osdElementConfig_t, item_pos[OSD_RSSI_DBM_VALUE]) },
+#endif
+#ifdef USE_RX_SNR_DBM
+    { "osd_snr_dbm_pos",            VAR_UINT8  | MASTER_VALUE, .config.minmaxUnsigned = { 0, OSD_POSCFG_MAX }, PG_OSD_ELEMENT_CONFIG, offsetof(osdElementConfig_t, item_pos[OSD_SNR_DBM_VALUE]) },
 #endif
     { "osd_tim_1_pos",              VAR_UINT16  | MASTER_VALUE, .config.minmaxUnsigned = { 0, OSD_POSCFG_MAX }, PG_OSD_ELEMENT_CONFIG, offsetof(osdElementConfig_t, item_pos[OSD_ITEM_TIMER_1]) },
     { "osd_tim_2_pos",              VAR_UINT16  | MASTER_VALUE, .config.minmaxUnsigned = { 0, OSD_POSCFG_MAX }, PG_OSD_ELEMENT_CONFIG, offsetof(osdElementConfig_t, item_pos[OSD_ITEM_TIMER_2]) },

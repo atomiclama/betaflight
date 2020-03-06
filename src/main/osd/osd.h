@@ -144,6 +144,7 @@ typedef enum {
     OSD_RC_CHANNELS,
     OSD_CAMERA_FRAME,
     OSD_EFFICIENCY,
+    OSD_SNR_DBM_VALUE,
     OSD_ITEM_COUNT // MUST BE LAST
 } osd_items_e;
 
@@ -183,6 +184,7 @@ typedef enum {
     OSD_STAT_TOTAL_TIME,
     OSD_STAT_TOTAL_DIST,
     OSD_STAT_MIN_RSSI_DBM,
+    OSD_STAT_MIN_SNR_DBM,
     OSD_STAT_COUNT // MUST BE LAST
 } osd_stats_e;
 
@@ -233,6 +235,7 @@ typedef enum {
     OSD_WARNING_LINK_QUALITY,
     OSD_WARNING_RSSI_DBM,
     OSD_WARNING_OVER_CAP,
+    OSD_WARNING_SNR_DBM,
     OSD_WARNING_COUNT // MUST BE LAST
 } osdWarningsFlags_e;
 
@@ -280,6 +283,9 @@ typedef struct osdConfig_s {
     char profile[OSD_PROFILE_COUNT][OSD_PROFILE_NAME_LENGTH + 1];
     uint16_t link_quality_alarm;
     int16_t rssi_dbm_alarm;
+    #ifdef USE_RX_SNR_DBM
+    int8_t snr_dbm_alarm;
+    #endif
     uint8_t gps_sats_show_hdop;
     int8_t rcChannels[OSD_RCCHANNELS_COUNT];  // RC channel values to display, -1 if none
     uint8_t displayPortDevice;                // osdDisplayPortDevice_e
@@ -312,6 +318,9 @@ typedef struct statistic_s {
     int32_t max_esc_rpm;
     uint16_t min_link_quality;
     int16_t min_rssi_dbm;
+    #ifdef USE_RX_SNR_DBM
+    int8_t min_snr_dbm;
+    #endif
 } statistic_t;
 
 extern timeUs_t resumeRefreshAt;

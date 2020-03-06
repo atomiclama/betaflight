@@ -183,6 +183,7 @@ const osd_stats_e osdStatsDisplayOrder[OSD_STAT_COUNT] = {
     OSD_STAT_TOTAL_FLIGHTS,
     OSD_STAT_TOTAL_TIME,
     OSD_STAT_TOTAL_DIST,
+    OSD_STAT_MIN_SNR_DBM,
 };
 
 void osdStatSetState(uint8_t statIndex, bool enabled)
@@ -531,6 +532,12 @@ static void osdUpdateStats(void)
         stats.min_rssi_dbm = value;
     }
 #endif
+#ifdef USE_RX_SNR_DBM
+    value = getSnrDbm();
+    if (value < stats.min_snr_dbm) {
+        stats.min_snr_dbm = value;
+    }
+#endif
 
 #ifdef USE_GPS
     if (STATE(GPS_FIX) && STATE(GPS_FIX_HOME)) {
@@ -795,6 +802,13 @@ static bool osdDisplayStat(int statistic, uint8_t displayRow)
     case OSD_STAT_MIN_RSSI_DBM:
         tfp_sprintf(buff, "%3d", stats.min_rssi_dbm);
         osdDisplayStatisticLabel(displayRow, "MIN RSSI DBM", buff);
+        return true;
+#endif
+
+#ifdef USE_RX_SNR_DBM
+    case OSD_STAT_MIN_SNR_DBM:
+        tfp_sprintf(buff, "%3d", stats.min_snr_dbm);
+        osdDisplayStatisticLabel(displayRow, "MIN SNR DBM", buff);
         return true;
 #endif
 
