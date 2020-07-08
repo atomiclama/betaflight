@@ -107,7 +107,7 @@
 #include "rx/crsf.h"
 #include "rx/cyrf6936_spektrum.h"
 #include "rx/a7105_flysky.h"
-#include "rx/crsf.h"
+#include "rx/spektrum.h"
 
 #include "sensors/acceleration.h"
 #include "sensors/barometer.h"
@@ -1274,10 +1274,10 @@ const clivalue_t valueTable[] = {
     { "osd_link_quality_alarm",     VAR_UINT16  | MASTER_VALUE, .config.minmaxUnsigned = { 0, 100 }, PG_OSD_CONFIG, offsetof(osdConfig_t, link_quality_alarm) },
 #endif
 #ifdef USE_RX_RSSI_DBM
-    { "osd_rssi_dbm_alarm",         VAR_INT16   | MASTER_VALUE, .config.minmaxUnsigned = { CRSF_RSSI_MIN, CRSF_SNR_MAX }, PG_OSD_CONFIG, offsetof(osdConfig_t, rssi_dbm_alarm) },
+    { "osd_rssi_dbm_alarm",         VAR_INT16   | MASTER_VALUE, .config.minmaxUnsigned = { CRSF_RSSI_MIN, CRSF_RSSI_MAX }, PG_OSD_CONFIG, offsetof(osdConfig_t, rssi_dbm_alarm) },
 #endif
 #ifdef USE_RX_SNR_DBM
-    { "osd_snr_dbm_alarm",          VAR_INT8   | MASTER_VALUE, .config.minmax = { CRSF_MIN_SNR, CRSF_MAX_SNR }, PG_OSD_CONFIG, offsetof(osdConfig_t, snr_dbm_alarm) },
+    { "osd_snr_dbm_alarm",          VAR_INT8   | MASTER_VALUE, .config.minmax = { CRSF_SNR_MIN, CRSF_SNR_MAX }, PG_OSD_CONFIG, offsetof(osdConfig_t, snr_dbm_alarm) },
 #endif
     { "osd_cap_alarm",              VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 0, 20000 }, PG_OSD_CONFIG, offsetof(osdConfig_t, cap_alarm) },
     { "osd_alt_alarm",              VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 0, 10000 }, PG_OSD_CONFIG, offsetof(osdConfig_t, alt_alarm) },

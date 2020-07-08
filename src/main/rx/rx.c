@@ -69,12 +69,13 @@
 #include "rx/targetcustomserial.h"
 
 
+
 const char rcChannelLetters[] = "AERT12345678abcdefgh";
 
 static uint16_t rssi = 0;                  // range: [0;1023]
 static int16_t rssiDbm = CRSF_RSSI_MIN;    // range: [-130,20]
 #ifdef USE_RX_SNR_DBM
-static int8_t snr_dbm = CRSF_MIN_SNR;
+static int8_t snr_dbm = CRSF_SNR_MIN;
 #endif
 static timeUs_t lastMspRssiUpdateUs = 0;
 
