@@ -160,10 +160,6 @@ static void handleCrsfLinkStatisticsFrame(const crsfLinkStatistics_t* statsPtr, 
     if (rssiSource == RSSI_SOURCE_RX_PROTOCOL_CRSF) {
         const uint16_t rssiPercentScaled = scaleRange(rssiDbm, CRSF_RSSI_MIN, 0, 0, RSSI_MAX_VALUE);
         setRssi(rssiPercentScaled, RSSI_SOURCE_RX_PROTOCOL_CRSF);
-#ifdef USE_RX_SNR_DBM
-        const int8_t snrDbm = stats.uplink_SNR;
-        setSnrDbm(snrDbm);
-#endif
     }
 #ifdef USE_RX_RSSI_DBM
     if (rxConfig()->crsf_use_rx_snr) {
@@ -171,7 +167,10 @@ static void handleCrsfLinkStatisticsFrame(const crsfLinkStatistics_t* statsPtr, 
     }
     setRssiDbm(rssiDbm, RSSI_SOURCE_RX_PROTOCOL_CRSF);
 #endif
-
+#ifdef USE_RX_SNR_DBM
+    const int8_t snrDbm = stats.uplink_SNR;
+    setSnrDbm(snrDbm);
+#endif
 #ifdef USE_RX_LINK_QUALITY_INFO
     if (linkQualitySource == LQ_SOURCE_RX_PROTOCOL_CRSF) {
         setLinkQualityDirect(stats.uplink_Link_quality);
